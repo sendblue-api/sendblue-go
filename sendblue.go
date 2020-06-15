@@ -104,6 +104,7 @@ func ReadWebhook(r io.ReadCloser) (*Message, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to read request body: %w", err)
 	}
+	defer r.Close()
 	msg := new(Message)
 	if err := json.Unmarshal(data, msg); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal into message: %w", err)
